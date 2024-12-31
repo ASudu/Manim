@@ -1,50 +1,5 @@
 from manim import *
 
-class WelcomeGitHub(Scene):
-    def construct(self):
-        # Grid background
-        plane = NumberPlane(
-            x_range=[-8, 8, 1],
-            y_range=[-5, 5, 1],
-            background_line_style={
-                "stroke_color": TEAL,
-                "stroke_width": 1,
-                "stroke_opacity": 0.5,
-            },
-        )
-        self.add(plane)
-
-        # Glowing "Welcome" text
-        welcome_text = Text("Welcome", font_size=96, gradient=(BLUE, PURPLE))
-        glowing_welcome = welcome_text.copy().set_color(YELLOW).set_opacity(0.4)
-
-        # Secondary text
-        repo_text = Text("to my GitHub Repo!", font_size=48, color=WHITE)
-        repo_text.next_to(welcome_text, DOWN, buff=0.5)
-
-        # Show grid and create welcome text
-        self.play(FadeIn(plane, run_time=2))
-        self.play(Write(welcome_text))
-
-        # Simulate glow with fading opacity
-        for _ in range(2):  # Repeat glowing effect
-            self.add(glowing_welcome)
-            self.play(glowing_welcome.animate.set_opacity(0.8), run_time=0.5)
-            self.play(glowing_welcome.animate.set_opacity(0.4), run_time=0.5)
-        self.remove(glowing_welcome)
-
-        # Slide in secondary text
-        self.play(Write(repo_text))
-        self.wait(1)
-
-        # Pulsing effect at the end
-        self.play(
-            welcome_text.animate.scale(1.2).set_color(YELLOW),
-            repo_text.animate.set_color(GREEN).scale(0.9),
-            run_time=1.5,
-        )
-        self.wait(2)
-
 class WelcomeGraphAnimation(Scene):
     def construct(self):
         # Grid background
