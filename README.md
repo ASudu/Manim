@@ -1,5 +1,7 @@
 # Manim
 
+![](https://github.com/ASudu/Manim/blob/main/_welcome.gif)
+
 In this repository, I try out a few math animations as a learning experience
 
 All the animation files can be found in `project/`
