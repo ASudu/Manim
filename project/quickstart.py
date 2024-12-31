@@ -30,3 +30,11 @@ class SquareAndCircle(Scene):
         self.play(Create(circle), Create(square))  # show the shapes on screen
 
         self.wait(1)
+
+class HelloWorld(Scene):
+    def construct(self):
+        # Create Text object
+        hello = Text("Hello, World!")
+        # Display text
+        self.play(Write(hello),run_time=2)
+        self.wait(1)
