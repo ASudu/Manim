@@ -11,6 +11,6 @@ def mp4_to_gif(mp4_path, gif_path):
     clip.write_gif(gif_path)
     print(f"Successfully converted and saved the gif to {gif_path}")
 
-mp4 = "D:/D_Drive/Github/Manim/project/media/videos/plotting/480p15/secant_grp.mp4"
-gif = "D:/D_Drive/Github/Manim/project/media/videos/plotting/480p15/secant_grp.gif"
+mp4 = input("Enter mp4 file path")
+gif = input("Enter gif file path")
 mp4_to_gif(mp4, gif)
