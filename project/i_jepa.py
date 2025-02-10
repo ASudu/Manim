@@ -399,7 +399,9 @@ class IJEPADemo(Scene):
                       FadeOut(step7_text),
                       FadeOut(target_block_copy),
                       FadeOut(loss_eq_grp),
-                      FadeOut(loss_vec)
+                      FadeOut(loss_vec),
+                      FadeOut(small_vec1),
+                      FadeOut(small_vec2)
                 )
             self.wait(2)
 
