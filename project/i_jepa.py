@@ -334,31 +334,30 @@ class IJEPADemo(Scene):
             self.play(FadeIn(loss_group), FadeOut(step6_text))
             self.wait(1)
 
+            # Scale them before putting through Loss box
+            self.play(target_block_copy.animate.scale(0.5), pred_in.animate.scale(0.5), Write(step7_text))
+            start1, end1 = pred_in.get_bottom(), loss_box.get_top()
+            start2, end2 = target_block_copy.get_top(), loss_box.get_bottom()
+
             # Draw an arrow from the predictor to the loss
             loss_arrow1 = Arrow(
-                start=pred_in.get_right(),
-                end=loss_box.get_left(),
+                start=start1,
+                end=end1,
                 stroke_width=3,
                 color=WHITE,
                 buff=0.1
             )
 
             loss_arrow2 = Arrow(    
-                start=target_block_copy.get_right(),
-                end=loss_box.get_left(),
+                start=start2,
+                end=end2,
                 stroke_width=3,
                 color=WHITE,
                 buff=0.1
             )
-
-            # Scale them before putting through Loss box
-            self.play(target_block_copy.animate.scale(0.5), pred_in.animate.scale(0.5), Write(step7_text))
-            # self.play(loss_vec.animate.scale(0.5), Write(step7_text))
             self.wait(1)
-            self.play(target_block_copy.animate.move_to(loss_group.get_center() + UP*0.1),
-                      pred_in.animate.move_to(loss_group.get_center() + DOWN*0.1),
-                      Create(loss_arrow1), Create(loss_arrow2))
-                    #   loss_vec.animate.move_to(loss_group.get_center() + UP*0.1))
+            self.play(target_block_copy.animate.move_to(loss_group.get_center() + UP*0.1), Create(loss_arrow2),
+                      pred_in.animate.move_to(loss_group.get_center() + DOWN*0.1), Create(loss_arrow1))
             self.wait(1)
             loss_vec = Group(target_block_copy, pred_in)
 
@@ -373,7 +372,7 @@ class IJEPADemo(Scene):
 
             # Coloring the equation components to match the vectors
             eq[1].set_color(BLACK) 
-            eq[3].set_color(BLACK)   # v1 in blue
+            eq[3].set_color(BLACK)
 
             # Small rectangles (representing vectors in the equation)
             small_vec1 = Rectangle(width=0.5,height=0.1, color=colors[p%len(colors)], fill_opacity=0.5).next_to(eq[3], ORIGIN, buff=0.1)
@@ -394,18 +393,8 @@ class IJEPADemo(Scene):
             self.wait(1)
             self.play(Create(loss_arrow3), Transform(loss_vec, loss_eq_grp))
             self.wait(1)
-            self.play(FadeOut(loss_group),
-                      FadeOut(loss_arrow3),
-                      FadeOut(step7_text),
-                      FadeOut(target_block_copy),
-                      FadeOut(loss_eq_grp),
-                      FadeOut(loss_vec),
-                      FadeOut(small_vec1),
-                      FadeOut(small_vec2),
-                      FadeOut(pred_in),
-                      FadeOut(pos_info),
-                      FadeOut(eq)
-                )
+            # Fade out all objects except the image, grid, and the context and target block
+            self.play(FadeOut(Group(*[mobj for mobj in self.mobjects if mobj not in [image_and_grid, *grid_cells_flat, context_block_copy, target_block_copy]])))
             self.wait(2)
 
 
